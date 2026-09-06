@@ -1,0 +1,101 @@
+import enum
+
+
+class UserRole(str, enum.Enum):
+    ANALYST = "ANALYST"
+    RESEARCHER = "RESEARCHER"
+    ADMIN = "ADMIN"
+    VIEWER = "VIEWER"
+
+
+class ProjectStatus(str, enum.Enum):
+    ACTIVE = "ACTIVE"
+    ARCHIVED = "ARCHIVED"
+    COMPLETED = "COMPLETED"
+
+
+class SensingModality(str, enum.Enum):
+    OPTICAL = "OPTICAL"
+    SAR = "SAR"
+    DEM = "DEM"
+    VECTOR = "VECTOR"
+    MULTISPECTRAL = "MULTISPECTRAL"
+
+
+class AnalysisStatus(str, enum.Enum):
+    QUEUED = "QUEUED"
+    RUNNING = "RUNNING"
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"
+    CANCELLED = "CANCELLED"
+
+
+class EpistemicLevel(str, enum.Enum):
+    OBSERVED = "OBSERVED"
+    CALCULATED = "CALCULATED"
+    DETECTED = "DETECTED"
+    ESTIMATED = "ESTIMATED"
+    PREDICTED = "PREDICTED"
+    AI_INTERPRETATION = "AI_INTERPRETATION"
+
+
+class EvidenceStrength(str, enum.Enum):
+    STRONG = "STRONG"
+    MODERATE = "MODERATE"
+    LIMITED = "LIMITED"
+    INSUFFICIENT = "INSUFFICIENT"
+
+
+class SupportClassification(str, enum.Enum):
+    STRONGLY_SUPPORTED = "STRONGLY_SUPPORTED"
+    PARTIALLY_SUPPORTED = "PARTIALLY_SUPPORTED"
+    ESTIMATED = "ESTIMATED"
+    UNAVAILABLE = "UNAVAILABLE"
+
+
+class FuturePredictionType(str, enum.Enum):
+    URBAN_EXPANSION = "URBAN_EXPANSION"
+    VEGETATION_TREND = "VEGETATION_TREND"
+    WATER_COVERAGE = "WATER_COVERAGE"
+    ROAD_DEVELOPMENT = "ROAD_DEVELOPMENT"
+    LAND_USE_CHANGE = "LAND_USE_CHANGE"
+
+
+class IslamicSourceGrade(str, enum.Enum):
+    QURAN = "QURAN"
+    MUTAWATIR_HADITH = "MUTAWATIR_HADITH"
+    AHAD_SAHIH = "AHAD_SAHIH"
+    SCHOLARLY_IJMA = "SCHOLARLY_IJMA"
+    HISTORICAL_TARIKH = "HISTORICAL_TARIKH"
+    UNVERIFIED_ISRAILIYYAT = "UNVERIFIED_ISRAILIYYAT"
+
+
+class ReportStatus(str, enum.Enum):
+    PENDING = "PENDING"
+    GENERATING = "GENERATING"
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"
+
+
+class GeographicEntityType(str, enum.Enum):
+    COUNTRY = "COUNTRY"
+    STATE = "STATE"
+    PROVINCE = "PROVINCE"
+    REGION = "REGION"
+    DISTRICT = "DISTRICT"
+    CITY = "CITY"
+    TOWN = "TOWN"
+    VILLAGE = "VILLAGE"
+    SUBURB = "SUBURB"
+    ROAD = "ROAD"
+    STREET = "STREET"
+    PLACE = "PLACE"
+    WATERBODY = "WATERBODY"
+    MOUNTAIN = "MOUNTAIN"
+    LANDMARK = "LANDMARK"
+    AIRPORT = "AIRPORT"
+    RAILWAY = "RAILWAY"
+    COORDINATE = "COORDINATE"
+    AOI = "AOI"
+    PROJECT = "PROJECT"
+
