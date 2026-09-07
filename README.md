@@ -54,6 +54,46 @@ ORBIT solves these challenges through:
 
 ---
 
+## Visual Tour
+
+### Operational Workstation
+
+Main command-center interface for exploring geographic context, layers, intelligence outputs, and operational analysis.
+
+![Operational Workstation](docs/screenshots/main-workstation.png)
+
+### Earth Observation
+
+Live/operational Earth Observation exploration and satellite scene analysis.
+
+![Earth Observation](docs/screenshots/earth-observation.png)
+
+### Historical Archives
+
+Historical geographic/earth-observation context and year-by-year development analysis.
+
+![Historical Archives](docs/screenshots/historical-archives.png)
+
+### Future Forecasting
+
+Forecasting and future-prediction intelligence derived from historical and temporal evidence.
+
+![Future Forecasting](docs/screenshots/future-forecasting.png)
+
+### Evidence DAG
+
+Evidence-backed intelligence synthesis showing relationships between observations, evidence, confidence, and conclusions.
+
+![Evidence DAG](docs/screenshots/evidence-DAG.png)
+
+### Reports
+
+Grounded intelligence reports and decision-support outputs generated from the platform.
+
+![Reports](docs/screenshots/reports.png)
+
+---
+
 ## 4. System Architecture
 
 ORBIT enforces strict architectural separation between user interaction, API routing, asynchronous task execution, analytical processing, and spatial storage:
