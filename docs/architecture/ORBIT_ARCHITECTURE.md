@@ -1,58 +1,58 @@
-﻿# ORBIT System Architecture
+# ORBIT System Architecture
 
 ## 1. Master System Architecture Diagram
 
 The diagram below illustrates the end-to-end data flow, processing pipeline, and structural separation of concerns across the ORBIT platform:
 
 ```mermaid
-graph TD
-    User([Analyst / Decision Maker]) -->|Interacts via Browser| Frontend[React 18 + TypeScript + Vite Workstation]
+flowchart TD
+    USER["Analyst / Decision Maker"] -->|"Interacts via Browser"| FE["React 18 + TypeScript + Vite Workstation"]
 
-    subgraph Presentation & Geospatial Workstation
-        Frontend --> MapLibreEngine[MapLibre GL JS 4.7 Map Engine]
-        Frontend --> UIComponents[Analysis Workspace, Evidence DAG, Dossier Reader]
-        MapLibreEngine --> MapTiler[(MapTiler Cloud Vector / Raster Basemaps)]
-        MapLibreEngine --> OSMTiles[(OpenStreetMap Vector Road Tiles)]
+    subgraph PRESENTATION["Presentation & Geospatial Workstation"]
+        FE --> MAP["MapLibre GL JS 4.7 Map Engine"]
+        FE --> UI_COMP["Analysis Workspace, Evidence DAG, Dossier Reader"]
+        MAP --> MAPTILER[("MapTiler Cloud Vector / Raster Basemaps")]
+        MAP --> OSM_TILES[("OpenStreetMap Vector Road Tiles")]
     end
 
-    Frontend -->|REST / JSON API Calls| FastAPIGateway[FastAPI API Gateway - Python 3.11+]
+    FE -->|"REST / JSON API Calls"| API["FastAPI API Gateway (Python 3.11+)"]
 
-    subgraph Security & API Invariants
-        FastAPIGateway --> SecurityHardening[Security Hardening: SSRF Guard, Path Traversal Jail, Credential Redaction]
-        FastAPIGateway --> ErrorSanitizer[Error Envelope & Status Sanitizer]
+    subgraph SECURITY["Security & API Invariants"]
+        API --> SEC_GUARD["Security Hardening: SSRF Guard, Path Jail, Redaction"]
+        API --> SANITIZER["Error Envelope & Status Sanitizer"]
     end
 
-    subgraph Intelligence & Analytical Services
-        FastAPIGateway --> EO_STAC[EO / STAC Discovery & Ingestion]
-        FastAPIGateway --> RasterEngine[Raster Processing & Windowed COG Reader]
-        FastAPIGateway --> SpectralAnalysis[Spectral Band Math: NDVI, NDWI, NDBI, SAVI]
-        FastAPIGateway --> ChangeDetection[Multi-Temporal Change Detection & Trajectory Persistence]
-        FastAPIGateway --> Forecasting[Time-Series Forecasting & 95% Confidence Intervals]
-        FastAPIGateway --> MultiSourceFusion[Multi-Source EO Fusion & Pairwise Alignment]
-        FastAPIGateway --> ContradictionEngine[Cross-Sensor Contradiction & Evidence Scoring]
-        FastAPIGateway --> GroundedAI[Grounded AI Reasoner & Anti-Hallucination Gate]
+    subgraph INTELLIGENCE["Intelligence & Analytical Services"]
+        API --> STAC_DISC["EO / STAC Discovery & Ingestion"]
+        API --> RASTER["Raster Processing & Windowed COG Reader"]
+        API --> SPECTRAL["Spectral Band Math: NDVI, NDWI, NDBI, SAVI"]
+        API --> CHANGE["Multi-Temporal Change Detection & Trajectory Persistence"]
+        API --> FORECAST["Time-Series Forecasting & 95% Confidence Intervals"]
+        API --> FUSION["Multi-Source EO Fusion & Pairwise Alignment"]
+        API --> CONTRADICT["Cross-Sensor Contradiction & Evidence Scoring"]
+        API --> GROUNDED_AI["Grounded AI Reasoner & Anti-Hallucination Gate"]
     end
 
-    subgraph External Earth Observation Providers
-        EO_STAC -->|Secure HTTP / STAC API| AWSEarthSearch[(AWS Earth Search / Element84 STAC)]
-        RasterEngine -->|Windowed HTTP Range Requests| Sentinel2[(Copernicus Sentinel-2 L2A BOA Reflectance)]
-        RasterEngine -->|Windowed HTTP Range Requests| Sentinel1[(Copernicus Sentinel-1 SAR GRD C-Band)]
-        RasterEngine -->|Windowed HTTP Range Requests| Landsat[(USGS / NASA Landsat-8/9 OLI/TIRS)]
+    subgraph PROVIDERS["External Earth Observation Providers"]
+        STAC_DISC -->|"STAC API"| AWS_STAC[("AWS Earth Search STAC")]
+        RASTER -->|"HTTP Range Reads"| S2_SRC[("Copernicus Sentinel-2 L2A")]
+        RASTER -->|"HTTP Range Reads"| S1_SRC[("Copernicus Sentinel-1 SAR")]
+        RASTER -->|"HTTP Range Reads"| LS_SRC[("USGS / NASA Landsat-8/9")]
     end
 
-    subgraph Asynchronous Execution & Caching
-        ChangeDetection -.->|Enqueue Long-Running Tasks| CeleryWorker[Celery 5.3 Task Pipeline]
-        MultiSourceFusion -.->|Enqueue Compute Tasks| CeleryWorker
-        CeleryWorker <--> RedisBroker[(Redis 7.2 Broker & Tile Cache)]
+    subgraph ASYNC_LAYER["Asynchronous Execution & Caching"]
+        CHANGE -.->|"Enqueue Task"| CELERY["Celery 5.3 Task Pipeline"]
+        FUSION -.->|"Enqueue Task"| CELERY
+        CELERY <--> REDIS[("Redis 7.2 Broker & Tile Cache")]
     end
 
-    subgraph Persistence & Spatial Storage
-        RasterEngine --> SQLAlchemyAsync[SQLAlchemy 2.0 Async Engine / GeoAlchemy2]
-        ChangeDetection --> SQLAlchemyAsync
-        Forecasting --> SQLAlchemyAsync
-        MultiSourceFusion --> SQLAlchemyAsync
-        GroundedAI --> SQLAlchemyAsync
-        SQLAlchemyAsync --> PostgreSQL[(PostgreSQL 16 + PostGIS 3.4 Spatial Database)]
+    subgraph STORAGE["Persistence & Spatial Storage"]
+        RASTER --> ORM["SQLAlchemy 2.0 Async Engine / GeoAlchemy2"]
+        CHANGE --> ORM
+        FORECAST --> ORM
+        FUSION --> ORM
+        GROUNDED_AI --> ORM
+        ORM --> DB[("PostgreSQL 16 + PostGIS 3.4 Spatial Database")]
     end
 ```
 

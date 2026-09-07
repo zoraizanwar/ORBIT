@@ -118,12 +118,12 @@ ORBIT's raster engine reads remote sensing assets via Cloud-Optimized GeoTIFF (C
 
 ```mermaid
 flowchart LR
-    S2[Sentinel-2 Optical] --> Fusion[Pairwise Alignment Engine]
-    S1[Sentinel-1 SAR Radar] --> Fusion
-    OSM[OpenStreetMap Vectors] --> Fusion
-    Fusion --> Score{Contradiction Check}
-    Score -->|Corroborated| HighConf[Level 2: High Confidence Evidence]
-    Score -->|Conflict Found| Downgrade[Flagged Discrepancy + Lower Evidence Score]
+    S2["Sentinel-2 Optical (10m)"] --> FUSION["Pairwise Alignment Engine"]
+    S1["Sentinel-1 SAR C-Band (10m)"] --> FUSION
+    OSM["OpenStreetMap Road Vectors"] --> FUSION
+    FUSION --> CHECK{"Contradiction Check"}
+    CHECK -->|"Corroborated"| HIGH["Level 2: High Confidence Evidence"]
+    CHECK -->|"Conflict Detected"| LOW["Flagged Discrepancy (Adjusted Score)"]
 ```
 
 - **Optical Reflectance**: Captures photosynthetic canopy health, chlorophyll absorption, and surface color shifts.
